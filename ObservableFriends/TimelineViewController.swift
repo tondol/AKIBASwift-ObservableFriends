@@ -32,7 +32,7 @@ class TimelineViewController: UIViewController {
         // 自分で Observable を作るときは Observable#create を使います。
         return Observable.create { [unowned self] observer in
             self.count += 1
-            observer.onNext(["わーい！", "Observable すごーい！", "\(self.count)回目"])
+            observer.onNext(["わーい！", "すごーい！", "\(self.count)回目"])
             observer.onCompleted()
             return Disposables.create()
         }
@@ -44,7 +44,7 @@ class TimelineViewController: UIViewController {
         return Single.create { event in
             self.count += 1
 //            event(.error(MyError())) // エラーを先に流したら??
-            event(.success(["わーい！", "Single すごーい！", "\(self.count)回目"]))
+            event(.success(["わーい！", "すごーい！", "\(self.count)回目"]))
 //            event(.success(["もっと値を流したらどうなるの??"]))
             return Disposables.create()
         }
@@ -52,13 +52,13 @@ class TimelineViewController: UIViewController {
     
     fileprivate func didTapReloadButton() {
         // タップする度に新しいトゥートが表示されることを期待しているが・・・
-        self.fetchWithObservable()
+        fetchWithObservable()
             .bind(to: toots)
             .addDisposableTo(bag)
         
 //        // Single の場合は、そもそも bind ができない!!
 //        // 型で値がひとつしか来ないことが分かるし、事故が起こりづらい。
-//        self.fetchWithSingle()
+//        fetchWithSingle()
 //            .subscribe(onSuccess: { [unowned self] newToots in
 //                self.toots.onNext(newToots)
 //            })
@@ -94,7 +94,8 @@ class TimelineViewController: UIViewController {
         }
     }
     
-    // Completable 、ほぼ Single<Void> じゃないの??
+    // Completable
+    // ほぼ Single<Void> じゃないの??
     fileprivate func exampleSingleVoid() -> Single<Void> {
         return Single.create { event in
             event(.success())
