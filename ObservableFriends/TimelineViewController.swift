@@ -51,18 +51,18 @@ class TimelineViewController: UIViewController {
     }
     
     fileprivate func didTapReloadButton() {
-        // タップする度に新しいトゥートが表示されることを期待しているが・・・
-        fetchWithObservable()
-            .bind(to: toots)
-            .addDisposableTo(bag)
-        
-//        // Single の場合は、そもそも bind ができない!!
-//        // 型で値がひとつしか来ないことが分かるし、事故が起こりづらい。
-//        fetchWithSingle()
-//            .subscribe(onSuccess: { [unowned self] newToots in
-//                self.toots.onNext(newToots)
-//            })
+//        // タップする度に新しいトゥートが表示されることを期待しているが・・・
+//        fetchWithObservable()
+//            .bind(to: toots)
 //            .addDisposableTo(bag)
+        
+        // Single の場合は、そもそも bind ができない!!
+        // 型で値がひとつしか来ないことが分かるし、事故が起こりづらい。
+        fetchWithSingle()
+            .subscribe(onSuccess: { [unowned self] newToots in
+                self.toots.onNext(newToots)
+            })
+            .addDisposableTo(bag)
     }
     
     fileprivate func setupBindings() {
