@@ -93,9 +93,7 @@ class TimelineViewController: UIViewController {
             return Disposables.create()
         }
     }
-    
-    // Completable
-    // ほぼ Single<Void> じゃないの??
+    // Completable 、ほぼ Single<Void> じゃない??
     fileprivate func exampleSingleVoid() -> Single<Void> {
         return Single.create { event in
             event(.success())
@@ -105,10 +103,10 @@ class TimelineViewController: UIViewController {
     }
     
     // Maybe
-    // 使いどころがいまいちわかりません。教えてください。
+    // 要素が 0 個でも completed になりうる。
     fileprivate func exampleMaybe() -> Maybe<[String]> {
         return Maybe.create { event in
-            event(.success(["わーい！", "Maybe すごーい！"]))
+            event(.success(["わーい！", "すごーい！"]))
             event(.completed)
             event(.error(MyError()))
             return Disposables.create()
